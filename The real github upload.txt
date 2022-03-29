@@ -1,0 +1,17 @@
+Github
+
+Git is used to let the computer know what to do with the git commands
+
+git init - adds repo into folder
+git add . 
+git commit -m "any message yu want"
+git remote add origin GITHUB REPO (Make sure this contains the https)
+git push -u origin master
+
+
+Updating files
+git pull origin master
+git push origin master
+git add .
+git commit -m "Updated on 3/28"
+git push -u origin master

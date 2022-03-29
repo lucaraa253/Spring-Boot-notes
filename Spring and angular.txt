@@ -1,0 +1,231 @@
+Angular UI ---- Spriong Database
+
+Http Status codes
+
+404 
+
+500
+
+localhost:5050/product - Spring -postgres
+
+localhost:3000/product - JSON-server    -productsdb.json
+
+Connecting an angular application to a spriong endpoint is as simple as changing the URL in your service
+
+The only snag is cors
+Cross origin resource sharing
+
+PUT THIS IN YOUR CONTROLLER - says that if a request comes from localhost4200 this will not be a problem
+@CrossOrigin(origins = "http://localhost:4200")
+
+PUT THIS IN YOUR SERVIE IN YOU ANGULAR APP SAYING WHERE TO PERFORM THE URL CONNECTION FOR THE DATABASE
+const productURL = "http://localhost:5050/product"
+------------------------
+
+
+AOP - aspect oriented programming
+public void withdraw(int amount){
+	//do security
+	//logging
+	balance = balance - amount;
+}
+
+public void deposit(int amount){
+	//do security
+	balance = balance + amount;
+}
+
+Aspect
+Point cut
+joinpoint
+
+@Before
+@After
+
+---------------------------------
+
+Logging - This will log every method used in your application
+
+CReate an Aspect class in com.training.pms.aspects
+class LoggingAsepct
+
+@Component
+@Aspect
+public class LoggingAspect {
+	
+	@Before(value = "execution(* com.training.pms.service.ProductService.*(..))")
+	public void doLogging(JoinPoint joinpoint) {
+		Signature signature = joinpoint.getSignature();
+		System.out.println("2.###I am performing a loggin function before for : " + signature.getName());
+	}
+	@After(value = "execution(* com.training.pms.service.ProductService.*(..))")
+	public void doLogging2(JoinPoint joinpoint) {
+		Signature signature = joinpoint.getSignature();
+		System.out.println("3.### I am performing a loggin function after for : " + signature.getName());
+	}
+	
+	@Around(value = "execution(* com.training.pms.service.ProductService.*(..))")
+	public Object checkData(ProceedingJoinPoint joinpoint) throws Throwable {
+		Signature signature = joinpoint.getSignature();
+		System.out.println("1.###I am AROUND ASPECT : " + signature.getName());
+		//Please proceeed with the method call
+		Object retVal = joinpoint.proceed();
+		System.out.println("4.###I am AROUND ASPECT : " + signature.getName());
+		
+		return retVal;
+	}
+
+---------------------------------------
+
+Spring boot actuator - Monitor health of application
+
+
+beans
+Spring bot actuator is a spriong library that exposes tools for monitoring metrics about a running application
+
+Add dependency
+
+right click
+spring starter
+Spring boot actuator
+
+--then application properties
+management.endpoints.web.exposure.include=*
+
+This will include everything about your application
+
+Go to post man and type localhost:5050/actuator/
+Then you can click opn the part of the application you want to view
+
+--------------------
+ 
+Create new project
+
+new - other - spring starter
+lombok, spring boot dev tools, postgres, spring data jpa, actuator, spring web
+
+This will run on 8080 until you change it
+
+---Application.properties
+-server.port=5050
+
+spring.datasource.driver-class-name=org.postgresql.Driver
+spring.datasource.url=jdbc:postgresql://localhost:5432/postgres
+spring.datasource.username=postgres
+spring.datasource.password=root
+
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+spring.jpa.generate-ddl=true
+spring.jpa.properties.hibernate.format_sql=true
+
+management.endpoints.web.exposure.include=*
+
+-------
+right click new class Reviews
+.models package
+
+-----------
+
+AS SOON AS YOU RUN THIS IT WILL CREATE A TABLE IN DBEAVER
+-YOU NEED @Id SO THAT THE TABLE KNOWS THE PRIMARY KEY
+@Data 
+@Entity
+@Table(name = "jwareviews")
+public class Reviews {
+	
+	@Id
+	private int reviewId;
+	
+	private String reviewComments;
+	private int reviewStar;
+}
+
+-------------
+right click new interface respository
+.repositories package
+--
+public interface ReviewsRepository extends CrudRepository<Reviews, Integer>{
+
+}
+
+-----------------
+right click new class controller
+.controller package
+
+@RestController
+@RequestMapping("reviews")
+public class ReviewsController {
+
+	@Autowired
+	ReviewsRepository reviewsRepo;
+	
+	@GetMapping
+	public ResponseEntity<List<Reviews>> getReviews(){
+		List<Reviews> allReviews = (List<Reviews>)reviewsRepo.findAll();
+		return new ResponseEntity<List<Reviews>>(allReviews, HttpStatus.OK);
+	}
+	
+	@GetMapping("/{reviewId}")
+	public ResponseEntity<Reviews> getReview(@PathVariable("reviewId")int reviewId){
+		Optional<Reviews> reviews = reviewsRepo.findById(reviewId);
+		return new ResponseEntity<Reviews>(reviews.get(), HttpStatus.OK);
+	}
+	
+	@PostMapping
+	public ResponseEntity<String> saveReview(@RequestBody Reviews reviews) {
+		reviewsRepo.save(reviews);
+		return new ResponseEntity<String>("Reviews saved sucessfully", HttpStatus.CREATED);
+	}
+	
+	@PutMapping
+	public ResponseEntity<String> updateReview(@RequestBody Reviews reviews) {
+		reviewsRepo.save(reviews);
+		return new ResponseEntity<String>("Reviews updated sucessfully", HttpStatus.OK);
+	}
+	
+	@DeleteMapping("/{reviewId}")
+	public ResponseEntity<String> deleteReview(@PathVariable("reviewId")int reviewId) {
+		reviewsRepo.deleteById(reviewId);
+		return new ResponseEntity<String>("Reviews deleted sucessfully", HttpStatus.OK);
+	}
+	
+}
+---------------
+
+Testing
+
+1.Post
+2. Rest Template - class which is used to call one of the rest app from another app
+	get
+	put
+	post
+
+@Bean
+public RestTemplate getRestTemplate(){
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

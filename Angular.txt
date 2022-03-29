@@ -1,0 +1,909 @@
+Angular
+--------------------
+
+[  12  ]
+[  12  ]
+
+24
+
+A client side framework like JS
+
+AngularJS is a very powerful JS library
+
+Used in SPA single page applications p[rojects. It extends HTML DOM with additional attributes and m,akes it more responsive to the user
+
+
+
+
+<script type="text/javascript" src="angular.js">
+
+After version 1.5 Javascript was removed and we only use typescript now
+
+
+Main 4 pillars
+
+Componenets
+Services
+Routing
+Directives
+
+Use case : We have to create and configure angular in our system 
+
+------------------------------------
+
+Angular CLI command line interface*****
+
+Node package manager
+
+package.json
+
+JSON javascript object notation
+
+node -v
+to check which version node you have
+
+local folder
+npm install @angular/cli
+global
+npm install -g @angular/cli
+
+Go to folder where you want your project
+
+ng new product-app-jwa-us**************************
+
+Do you want angular routing Yes
+
+CSS yes
+
+-Project is now created
+
+-------------
+open folder in visual studio code
+
+open terminal
+
+Starting server
+npm start - reads files and starts server
+
+localhost:4200
+
+dELETE
+in app folder
+componenet.css/html;/spec/ts
+
+----------
+Create file app.components.ts
+import { Component } from "@angular/core";
+
+//component to be put into index.html in app-root
+@Component({
+    //Selector in index.html
+    selector : 'app-root',
+    //What you want in your code
+    template : '<h1>Nicholas Lucara - Employee-JWA Batch</h1>'
+})
+//exporting the component
+export class AppComponent{
+
+};
+
+-----------------
+Creating a component
+employee.components.ts
+
+import { Component } from "@angular/core";
+
+//component to be put into index.html in app-root
+@Component({
+    //Selector in index.html
+    selector : 'emp-app',
+    //What you want in your code
+    template : '<h1>Employee Component</h1>'
+})
+//exporting the component
+export class EmployeeComponent{
+
+};
+
+app.modules.ts
+***Declare the component
+declarations: [
+    AppComponent, EmployeeComponent ========<<<<==========
+  ],
+***Delcare it in bootstrap as well***
+bootstrap: [AppComponent, EmployeeComponent]
+
+
+--------------------------------
+
+IF YOU WANT TO WRITE MULTI LINE use a back tick ``
+
+-----------
+
+JS
+
+export class CustomerComponent{
+    customerName: string = "Richard"
+    billAmmount : number = 0;
+
+    cunstructor(){
+        this.customerName = "Daniel";
+        this.billAmmount= 98000;
+    }
+};
+
+If you call upon the customerName it will come up Daniel and not
+ richard due to the constructor being claled after the instantiation
+
+---------------------------------
+
+Downloading someone elses' project from github
+
+download code
+extract all
+naviagte to folder in VSC
+npm install
+npm start
+
+-----------------------------
+
+Property binding and event binding - makes dyanmic webpage and allows to change items on the page
+
+@Component({
+    selector: 'cust-app',
+    template : `<hr/><h1>Customer App</h1>
+                <h1>My second day learnings
+                    <br/>
+                {{ customerName }}
+                {{ 2+2 }}
+                {{ "Welcome "+ customerName + " and your bill amount is "+ billAmount}}
+            </h1>
+            <img [src] = "imageURL">
+            <!-- Property binding -->
+            <input type="text" [value] = "customerName">
+            <!-- Event binding -->
+            <button (click)="sayHello()">Go</button>
+                `
+})
+export class CustomerComponent
+{
+    customerName:string = "Richard"
+    billAmount : number = 0;
+    imageURL: string = "https://cdn.vox-cdn.com/thumbor/FIAhkoPzl1H4xvod8temCqtnrLQ=/1400x1400/filters:format(jpeg)/cdn.vox-cdn.com/uploads/chorus_asset/file/21696224/jbareham_200804_ply1034_0033_potc_johnny.jpg"
+    constructor() {
+        this.customerName = "Daniel"
+        this.billAmount = 96000
+    }
+
+    sayHello(){
+        this.customerName="Nick"
+        this.imageURL="https://insidethemagic.net/wp-content/uploads/2021/02/Minnie-Watermelon-Dole-Whip-21.jpg"
+    }
+}
+
+---------------------------------------
+
+Styling ---INSIDE THE SAME FILE
+
+inside template section of app
+
+after <h1>'s
+
+styles : ['h1 {color:yellow}']
+
+--------------------------------------
+
+CREATING SEPERATE HTML AND CSS FILES FOPR THE PROJECT
+
+review.componenet.html
+<h1>Likes : {{likes}}, Unlikes : {{unLikes}}</h1>
+<h1>Comments : {{comments}}</h1>
+<button (click)="like()">Like</button>
+<button (click)="unLike()">UnLike</button>
+
+review.component.css
+h1 {color:blue}
+
+review.component.ts
+selector: 'review-app',
+    templateUrl : 'review.component.html',
+    styleUrls : ['review.component.css']
+
+---------------------------------------------
+Generates a cart component
+
+ng g c components/cart
+
+ng angular
+g
+generate
+
+c
+component
+
+components/cart
+
+---------------------------------------------
+
+Ternary statements to change the outcome of a button and mesaage
+
+HTML DOC
+<h1>Cart App</h1>
+<h3>{{message}}</h3>
+<button (click)="toggleMessage()" id="butn">{{addRemove ? 'Add' : 'remove'}}</button>
+
+TS DOC
+toggleMessage(){
+    if(this.addRemove==true){
+      this.addRemove = false;
+      this.message = "Product Added Successfully"
+    }else{
+      this.addRemove = true;
+      this.message = "Product Removed Successfully"
+    }
+  }
+
+----------------------------------------------
+
+Decorators - Use the @ notation
+
+----------------------------------------------
+
+Multiple construcotrs are not allowed
+
+Used to initialize variables
+Gets called automatically
+----------------------------------------------
+
+Implementing methods
+
+ngOnDestroy
+
+----------------------------------------------
+
+What is ANGULAR
+
+Front end framework that uses typescript - SPA single page application
+
+----------------------------------------------
+
+WHat is Typescript
+
+Free open source programming language - Compiles JS
+typed superset of javascript tjay compiles plain javascript
+var marks: number=98;
+
+-----------------------------------------------
+
+Installing typescript globally
+
+npm install -g typescript
+
+-----------------------------------------------
+
+Angular Directives - Lets you manipulate the DOM
+---
+Component
+
+Structural
+	*ngfor
+	*ngif
+	*ngSwitch
+Attribute
+
+-------------------------
+
+Creating a class
+ng g class models/product
+
+-----------------------------
+
+*******STARTINGT NEW PROJECT*********
+
+ng new product-app-final
+
+app.component.html
+write whatever you want 
+<h1>Nicholas Lucara</h1>
+
+npm start - this will run the program
+
+CREATING CLASSES
+
+ng g c components/productList
+
+ng g class models/product
+
+---CREATING A CLASS AND HTML FILE TO SHOW ALL PRODUCTS--- 
+PUT IN APP.COMPONENT.HTML
+<h1>Nicholas Lucara</h1>
+<app-product-list></app-product-list>
+
+Product List component
+
+ products: Product[] = [];
+
+  constructor() { 
+
+    this.products = [
+      {'productId': 1001, productName:'Lakme', quantityOnHand:200, price:99},
+      {'productId': 1002, productName:'Aroma', quantityOnHand:100, price:79},
+      {'productId': 1003, productName:'Pendrive', quantityOnHand:300, price:199},
+      {'productId': 1004, productName:'Mouse', quantityOnHand:400, price:299},
+      {'productId': 1005, productName:'Laptop', quantityOnHand:150, price:929}
+    ]
+  }
+
+PRODUCT CLASS
+export class Product {
+
+    productId ? : number;
+    productName?:string;
+    quantityOnHand?:number;
+    price?:number;
+}
+
+HTML TO PRINT ALL PRODUCTS
+<p>All of the products</p>
+<ul>
+    <li *ngFor="let p of products">{{p.productId}} - {{p.productName}} - {{p.quantityOnHand}} - {{p.price}}</li>
+</ul>
+
+<table>
+    <tr>
+        <th>Product ID</th>
+        <th>Product Name</th>
+        <th>Quantity On Hand</th>
+        <th>Price</th>
+    </tr>
+    <tr *ngFor="let product of products">
+        <td>{{product.productId}}</td>
+        <td>{{product.productName}}</td>
+        <td>{{product.quantityOnHand}}</td>
+        <td>{{product.price}}</td>
+    </tr>
+</table>
+
+
+------------------------------
+[property binding]
+(event binding)
+
+2 way data binding
+HTML
+<input type="text" name="value" [(ngModel)]="guestName">
+COMPONENt
+  public guestName:string = "Daniel";
+APP>MODULE>TS
+imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule
+  ],
+
+-------------------------------
+
+Services
+
+----
+DI/IOC
+DEsign patterns
+
+Dependency injection
+Inversion of control
+
+Spring
+
+SERVICES - Injectable
+
+ng g s services/product
+
+---
+
+Go to components
+product-list
+
+inside constructor params (public productService : ProductService)
+
+Delcare all services to be injected in app.module.ts
+[ProductService, OutdatedProductService]
+
+----------------------------------------------------
+
+HTTP methods
+
+GET - get records
+PUT - update
+POST - new record
+DELETE - delete record
+
+This will all be in JSON format
+
+------------------------------------------
+
+INSTALLING JSON SERVER
+
+npm install -g json-server
+
+------------------------------------------
+
+Creating an notepad file
+
+notepad productdb.json
+
+Put in you product files
+
+{
+  "product": [
+    {
+      "productId": "1866",
+      "productName": "Jayyy",
+      "quantityOnHand": "17",
+      "price": "17"
+    },
+    {
+      "productId": "1223",
+      "productName": "jassds",
+      "quantityOnHand": "12",
+      "price": "1"
+    },
+    {
+      "productId": 7,
+      "productName": "Toys",
+      "quantityOnHand": 199,
+      "price": 9600
+    },
+    {
+      "productId": 71,
+      "productName": "Toys",
+      "quantityOnHand": 199,
+      "price": 9600
+    }
+  ]
+}
+
+
+json-server --watch productdb.json --id productId
+
+THIS WILL SUCCESSFULLY START A JSON SERVER IN LOCALHOST://3000
+
+If you want all the products you will need to go to localhost:3000/products
+
+--------------------------------------
+
+
+localhost://3000/product - GET - Find Products
+localhost://3000/product/1 - GET - Get oneproduct
+localhost://3000/product/1 - Delete - Delete one product
+
+localhost://3000/product - PUT 
+
+POST 
+Body-raw-JSON
+{
+    "productId": 299,
+    "productName": "Aroma",
+    "quantityOnHand": 299,
+    "price": 299
+
+}
+
+---------------
+
+REST
+respresentational state transfer
+Architecture
+
+It is used in webservice 
+2types
+soap
+rest API - all it needs it one uri
+
+--------------------------------
+
+HTTPService
+
+HttpModule
+responsible for REST API calls in angular
+
+HTTP client by which you can make the calls
+
+HttpClient  	-Make rest calls
+
+Put HttpClientModule in app.module
+
+ALSO IMPORT IT
+import {HttpClientModule} from '@angular/common/http'
+
+---
+
+Inside your service folder declare the Url
+
+const productURL = "http://localhost:3000/product"
+
+export class ProductService {
+
+ ** constructor(public httpClient:HttpClient) { }
+
+   getProducts() : Observable<Product []> {
+    return this.httpClient.get<Product []>(productURL)
+}
+}
+
+IOnside your product-list.component
+
+constructor(public productService: ProductService) { 
+    
+    // this.products = productService.getProducts();
+    this.productService.getProducts().subscribe((data:any) => {
+      this.products = data;
+    })
+  
+
+    
+  }
+
+CREATING ANOTHER PORT
+json-server --watch patientsdb.json --id patientId --port 5678
+
+json-server --watch patientsdb.json --port 5678
+
+STOPPING A SERVER
+
+ctrl + C
+
+-----------------------
+
+Data is outside the project
+You need to subscrube to get the data
+
+Solution
+
+Observa
+
+---------------------------------------
+
+Routing
+
+App.module.ts
+
+<a routerLink = "product-list"
+
+inside app.routing.module
+const routes: Routes = [
+  {path: 'product-list', component : ProductListComponent}
+];
+
+
+-----------------------------------------
+
+Error handling
+
+getProducts() : Observable<Product []> {
+    return this.httpClient.get<Product []>(productURL)
+   ** .pipe(
+      retry(1),
+      catchError(this.errorHandler)**
+    
+
+errorHandler(error: { error: { message: string; }; status: any; message: any; }) {
+    let errorMessage = '';
+    if (error.error instanceof ErrorEvent) {
+      // Get client-side error
+      errorMessage = error.error.message;
+    } else {
+      // Get server-side error
+      errorMessage = `REVError Code: ${error.status}\nMessage: ${error.message}`;
+    }
+    console.log(errorMessage);
+    return throwError(errorMessage);
+  }
+
+-------------------------------------------
+
+**public errorMessage:string;
+  public guestName:string = "Daniel";
+  productData = new ProductData();
+
+  constructor(public productService: ProductService) { 
+    
+    // this.products = productService.getProducts();
+    this.productService.getProducts().subscribe((data:any) => {
+      this.products = data;
+    },err => this.errorMessage = err)**
+
+
+<h3>{{errorMessage}}</h3>**
+<table>
+
+--------------------------------------------
+
+? is strict
+! is lesss strict
+
+---------------------------------------------
+
+
+Template driven forms
+FormsModule
+[(ngModel
+
+<form #userForm="ngForm" (ngSubmit)="displayUserDetails(userForm.value)">
+    <div class="form-group">
+        <label>
+            User ID
+        </label>
+        <input type="text" class="form-control" name="userId" [(ngModel)]="userId">
+        <label>
+            User Name
+        </label>
+        <input type="text" class="form-control" name="userName" [(ngModel)]="userName">
+        <input type="submit">
+    </div>
+</form>
+
+----------------------------------------------
+
+Model Driven Forms
+
+FormControl
+FormGroup = form
+
+<form novalidate [formGroup]="productForm" (ngSubmit)="displayProductInfo()">
+    <fieldset>
+        <div class="form-group">
+            <label >Product ID</label>
+            <input type="text" class="form-control" formControlName="productId">
+        </div>
+        <input type="submit">
+    </fieldset>
+</form>
+
+  productForm!: FormGroup
+  constructor() { 
+    this.productForm = new FormGroup({
+      // Takes trwo params(default valkue, validators)
+      productId: new FormControl('', Validators.required),
+      productName: new FormControl('', Validators.required),
+      quantityOnHand: new FormControl('', Validators.required),
+      price: new FormControl('', Validators.required),
+    })
+  }
+
+-----------------------------------------------
+
+
+CSS CLASSES - used to display error messages
+Validation
+
+Valid
+Invalid
+Pristine - not yet interacted
+dirty - Is now interacted
+touched
+untouched
+
+-----------------------------------------------
+Ceating validations in model driven form
+
+<form novalidate [formGroup]="productForm" (ngSubmit)="displayProductInfo()">
+    <fieldset>
+        <div class="form-group">
+            <label >Product ID</label>
+            <input type="text" class="form-control" formControlName="productId">
+        </div>
+        <div class="alert alert-danger" *ngIf="productForm.get('productId').hasError('required') && productForm.get('productId').dirty">Please enter Product ID</div>
+        <div class="form-group">
+            <label >Product Name</label>
+            <input type="text" class="form-control" formControlName="productName">
+        </div>
+        <div class="alert alert-danger" *ngIf="productForm.get('productName').hasError('required') && productForm.get('productName').dirty">Please enter Product Name</div>
+        <div class="alert alert-danger" *ngIf="productForm.get('productName').hasError('minlength') && productForm.get('productName').dirty">You must have at least 5 characters</div>
+        <div class="form-group">
+            <label >Quantity On Hand</label>
+            <input type="text" class="form-control" formControlName="quantityOnHand">
+        </div>
+        <div class="alert alert-danger" *ngIf="productForm.get('quantityOnHand').hasError('min') && productForm.get('quantityOnHand').dirty">You must input a quantity of at least 1</div>
+        <div class="form-group">
+            <label >Price</label>
+            <input type="text" class="form-control" formControlName="price">
+        </div>
+        <div class="alert alert-danger" *ngIf="productForm.get('price').hasError('min') && productForm.get('price').dirty">The price must be at least $1</div>
+        <input type="submit">
+    </fieldset>
+</form>
+
+constructor() { 
+    this.productForm = new FormGroup({
+      // Takes trwo params(default valkue, validators)
+      productId: new FormControl('', [Validators.required]),
+      productName: new FormControl('', [Validators.required, Validators.minLength(5)]),
+      quantityOnHand: new FormControl('', [Validators.required, Validators.min(1)]),
+      price: new FormControl('', [Validators.required, Validators.min(1)]),
+    }
+
+---------------------------------------------------
+
+Routing
+
+Declarative
+
+
+Progamatic routing
+
+----------------------------------------------------
+
+Default path for which page you would like to display upon load of the webpage
+
+{path: '', redirectTo : 'product-info', pathMatch:'full'},
+
+------------------------------------------------------
+
+Pipes
+
+
+
+Communication
+
+@Input
+@Output
+
+Procides a way to  transform values in an angular appplciation
+
+{{username | uppercase}} - turns all into uppercase
+
+{{username | slice: 0,4}} - turns all into uppercase
+
+---
+
+Custom Pipes
+
+Phone number pipe
+
+2533204001
+
+Convert to +(253)-320-4001
+
+ng g p pipes/phoneNumber
+
+-----
+
+Seperate Parameters
+
+<h1>Contact me at : {{mobileNumber | phoneNumber: 'P'}}</h1>
+<h1>Contact me at : {{mobileNumber | phoneNumber: '/'}}</h1>
+<h1>Contact me at : {{mobileNumber | phoneNumber: '--'}}</h1>
+
+transform(value: any, param:any, ...args: unknown[]): unknown {
+
+    if(undefined !== value && value.length ===10){
+      return '1+('+value.substring(0,3)+ ')'+param+value.substring(3,6)+param+ value.substring(6,10);
+    }
+    return null;
+  }
+
+-------------------
+
+
+
+# Angular
+
+1.  What makes a “single page application” (SPA) different from a normal web page?
+    -faast and responsive - Navigation between performed without refreshing the whole page
+	fits on a single page of the browser
+2.  Explain the difference between server-side and client-side rendering
+    server side - processed on servers
+	client side - javascript client side - 
+3.  What are some features of the Angular framework?
+    	Data binding
+	MVC architecture
+	Command Line Interface
+	
+4.  How does TypeScript relate to JavaScript? What are the major benefits of using it over JavaScript?
+    TypeScript is an open source syntactic superset of JavaScript that compiles to JavaScript (EcmaScript 3+). 
+TypeScript offers type annotations which provide optional, static type checking at
+ compile time. Since it is a superset of JavaScript, all JavaScript is syntactically valid TypeScript
+
+5.  List the data types of TypeScript
+    Number, Boolean, String, Void
+
+6.  How would you create a new Angular project?
+    npm install -g @angular/cli
+	ng new product-app-jwa-us
+
+7.  What is a component? How would you create one? List some other commands using the Angular CLI
+    Components are the most basic UI building block of an Angular app. 
+An Angular app contains a tree of Angular components. Angular components are a subset of directives, always associated with a template.
+ Unlike other directives, only one component can be instantiated for a given element in a template
+
+8.  What files make up a component? What is the “spec” file used for?
+    	html, css, ts files
+	The spec files are unit tests for your source files. The convention for Angular applications is to have a . spec. ts file for each
+	
+9.  Explain the relevance of npm to Angular projects. Which file does npm use to track dependencies?
+	PAckage.json
+    
+10.  List some decorators for Angular apps
+@NgModule.
+@Component.
+@Injectable.
+@Directive.
+@Pipe.
+@Input.
+@Output.
+@HostBinding.
+    
+11.  What is the lifecycle of a component? List some lifecycle hooks
+    ngOnChanges()
+ngOnInit()-Initialize the directive or component after Angular first displays the data-bound 
+properties and sets the directive or component's input properties. 
+See details in Initializing a component or directive in this document.
+
+ngDoCheck() - Detect and act upon changes that Angular can't or won't detect on its own. 
+See details and example in Defining custom change detection in this document.
+
+12.  What is a directive and what are the different types? How to tell these directives apart with syntax?
+
+NgClass—adds and removes a set of CSS classes.
+NgStyle—adds and removes a set of HTML styles.
+NgModel—adds two-way data binding to an HTML form element.
+    
+13.  What is the benefit of using a directive like NgClass over the class attribute, or even property binding to the class attribute?
+    
+14.  What is a pipe? A service?
+Pipes are simple functions to use in template expressions to accept an input value and return a transformed value
+Services
+An Angular service is a stateless object and provides some very useful functions. These functions can be invoked from any component of Angular, like Controllers, Directives, etc
+    
+15.  How would you create a custom pipe? What about a service?
+	ng g p pipes/phoneNumber
+    
+16.  How does dependency injection work in Angular?
+    
+17.  What is an Angular module? What properties should you set inside it?
+    
+18.  What’s the difference between a JavaScript module and Angular module? What are some common Angular modules?
+    
+19.  How would you lazy load a module?
+    
+20.  How have you used the HttpClient? What methods does it have and what do they return?
+    
+21.  What is an Observable? What’s the difference between it and a Promise?
+
+	Observables provide support for passing messages between parts of your application. 
+	We can use observables for event handling, asynchronous programming, and handling multiple values.
+	The obserser pattern is similar to the publish/subscribe design pattern.
+
+	a Promise emits a single value while Observable can emit multiple values
+
+    
+22.  What forms of data binding does Angular support? Explain the syntax for each
+    
+23.  What does Webpack do for your ng project?
+    
+24.  How would you implement routing in your project?
+    
+25.  What is an EventEmitter and when would you use one?
+    
+26.  What’s the difference between using reactive and template-driven forms? How would you setup each?
+    
+27.  How would you run your unit tests for an Angular project?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
